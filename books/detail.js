@@ -43,16 +43,77 @@
   loginLink.href = "../index.html#login";
   loginLink.className = "mt-5 inline-flex rounded-xl bg-zinc-950 px-5 py-3 text-sm font-medium text-white hover:bg-zinc-800";
   loginLink.textContent = "เข้าสู่ระบบเพื่อยืมหรือคืนหนังสือ";
-  loginLink.hidden = true;
 
   const actionButton = document.createElement("button");
   actionButton.type = "button";
-  actionButton.className = "mt-5 w-full rounded-xl bg-zinc-950 px-5 py-3 text-sm font-medium text-white transition hover:bg-zinc-800 disabled:cursor-not-allowed disabled:bg-zinc-100 disabled:text-zinc-400 sm:w-auto";
+  actionButton.className = "mt-5 w-full rounded-xl px-5 py-3 text-sm font-medium text-white transition disabled:cursor-not-allowed disabled:bg-zinc-100 disabled:text-zinc-400 sm:w-auto";
 
   const message = document.createElement("p");
   message.className = "mt-3 min-h-5 text-sm text-zinc-600";
   message.setAttribute("aria-live", "polite");
-  actions.append(availability, loginLink, overdueLabel, actionButton, message);
+  actions.append(availability, overdueLabel, actionButton, message);
+
+  const noticeOverlay = document.createElement("div");
+  noticeOverlay.className = "fixed inset-0 z-50 grid place-items-center bg-black/50 p-4 backdrop-blur-sm";
+  noticeOverlay.hidden = true;
+  noticeOverlay.style.display = "none";
+  noticeOverlay.setAttribute("role", "presentation");
+
+  const noticeDialog = document.createElement("section");
+  noticeDialog.className = "w-full max-w-sm rounded-3xl border border-zinc-200 bg-white p-6 text-center shadow-2xl sm:p-8";
+  noticeDialog.setAttribute("role", "dialog");
+  noticeDialog.setAttribute("aria-modal", "true");
+  noticeDialog.setAttribute("aria-labelledby", "notice-title");
+  noticeDialog.setAttribute("aria-describedby", "notice-description");
+
+  const noticeIcon = document.createElement("div");
+  noticeIcon.className = "mx-auto grid h-16 w-16 place-items-center rounded-full bg-emerald-100 text-3xl font-semibold text-emerald-700";
+  noticeIcon.setAttribute("aria-hidden", "true");
+  noticeIcon.textContent = "✓";
+
+  const noticeTitle = document.createElement("h2");
+  noticeTitle.id = "notice-title";
+  noticeTitle.className = "mt-5 text-2xl font-semibold tracking-tight text-zinc-950";
+
+  const noticeDescription = document.createElement("p");
+  noticeDescription.id = "notice-description";
+  noticeDescription.className = "mt-2 leading-6 text-zinc-600";
+
+  const noticeClose = document.createElement("button");
+  noticeClose.type = "button";
+  noticeClose.className = "mt-7 w-full rounded-xl bg-zinc-950 px-5 py-3 text-sm font-medium text-white transition hover:bg-zinc-800";
+  noticeClose.textContent = "ตกลง";
+  noticeDialog.append(noticeIcon, noticeTitle, noticeDescription, noticeClose);
+  noticeOverlay.append(noticeDialog);
+  document.body.append(noticeOverlay);
+
+  function closeNotice() {
+    noticeOverlay.hidden = true;
+    noticeOverlay.style.display = "none";
+    actionButton.focus();
+  }
+
+  function showNotice(title, description, fine) {
+    noticeTitle.textContent = title;
+    noticeDescription.textContent = description;
+    if (fine) {
+      const fineDetail = document.createElement("span");
+      fineDetail.className = "mt-3 block font-semibold text-amber-700";
+      fineDetail.textContent = `ค่าปรับ ฿${fine}`;
+      noticeDescription.append(fineDetail);
+    }
+    noticeOverlay.hidden = false;
+    noticeOverlay.style.display = "grid";
+    noticeClose.focus();
+  }
+
+  noticeClose.addEventListener("click", closeNotice);
+  noticeOverlay.addEventListener("click", event => {
+    if (event.target === noticeOverlay) closeNotice();
+  });
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && !noticeOverlay.hidden) closeNotice();
+  });
 
   function render() {
     state = window.LibrarySimulation.load();
@@ -71,9 +132,17 @@
     availability.textContent += member
       ? ` · สมาชิก: ${member.name}`
       : " · กรุณาเข้าสู่ระบบก่อนทำรายการ";
-    loginLink.hidden = Boolean(member);
+    if (member && loginLink.isConnected) {
+      loginLink.remove();
+    } else if (!member && !loginLink.isConnected) {
+      actions.insertBefore(loginLink, overdueLabel);
+    }
     actionButton.hidden = !member;
     actionButton.textContent = isBorrowed ? "คืนหนังสือ" : "ยืมหนังสือ";
+    actionButton.classList.toggle("bg-red-600", isBorrowed);
+    actionButton.classList.toggle("hover:bg-red-700", isBorrowed);
+    actionButton.classList.toggle("bg-zinc-950", !isBorrowed);
+    actionButton.classList.toggle("hover:bg-zinc-800", !isBorrowed);
     actionButton.disabled = !isBorrowed && !canBorrow;
     overdueLabel.hidden = !isBorrowed;
     if (member && !isBorrowed && !canBorrow) {
@@ -98,14 +167,28 @@
         memberKey,
         overdueToggle.checked ? 2 : 0
       );
-      message.textContent = result.fine
-        ? `คืนหนังสือเรียบร้อย · ค่าปรับ ฿${result.fine}`
-        : "คืนหนังสือเรียบร้อย";
+      if (!result.ok) {
+        message.textContent = "ไม่สามารถคืนหนังสือได้ กรุณาลองอีกครั้ง";
+        render();
+        return;
+      }
+      showNotice(
+        "คืนหนังสือเรียบร้อย",
+        result.fine ? "บันทึกการคืนหนังสือสำเร็จ" : "ขอบคุณที่นำหนังสือมาคืน",
+        result.fine
+      );
     } else {
       const result = window.LibrarySimulation.borrow(state, bookId, memberKey);
-      message.textContent = result.ok
-        ? "ยืมหนังสือเรียบร้อย · กำหนดคืนใน 14 วัน"
-        : result.reason === "limitReached" ? "สมาชิกยืมครบตามโควตาแล้ว" : "หนังสือไม่พร้อมให้ยืม";
+      if (!result.ok) {
+        message.textContent = result.reason === "limitReached"
+          ? "สมาชิกยืมครบตามโควตาแล้ว"
+          : result.reason === "unavailable"
+            ? "หนังสือถูกยืมหมดแล้ว"
+            : "ไม่สามารถยืมหนังสือได้ กรุณาลองอีกครั้ง";
+        render();
+        return;
+      }
+      showNotice("ยืมหนังสือสำเร็จ", "กำหนดคืนหนังสือภายใน 14 วัน");
     }
     render();
   });
