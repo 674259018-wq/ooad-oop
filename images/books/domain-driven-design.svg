@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 360">
+  <defs><linearGradient id="g" x2="1" y2="1"><stop stop-color="#7c2d12"/><stop offset="1" stop-color="#431407"/></linearGradient></defs>
+  <path fill="url(#g)" d="M0 0h240v360H0z"/><path d="M48 94h144v105H48z" fill="none" stroke="#fdba74" stroke-width="2"/>
+  <path d="M72 124h36v36H72zm60-12h36v60h-36zm-60 70h36m24-12h36" fill="#fb923c"/>
+  <path d="M108 142h24M90 160v22m60-10v10" stroke="#ffedd5" stroke-width="3"/>
+  <text x="25" y="260" fill="#fff7ed" font-family="sans-serif" font-size="15" font-weight="700">DOMAIN-DRIVEN</text><text x="25" y="286" fill="#fed7aa" font-family="sans-serif" font-size="12" letter-spacing="2">MODEL THE DOMAIN</text>
+</svg>

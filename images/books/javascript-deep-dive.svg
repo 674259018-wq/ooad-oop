@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 360">
+  <defs><linearGradient id="g" x2="0" y2="1"><stop stop-color="#312e81"/><stop offset="1" stop-color="#111827"/></linearGradient></defs>
+  <path fill="url(#g)" d="M0 0h240v360H0z"/><circle cx="120" cy="145" r="76" fill="none" stroke="#818cf8" stroke-width="2"/>
+  <circle cx="120" cy="145" r="53" fill="none" stroke="#a5b4fc" stroke-opacity=".7"/><circle cx="120" cy="145" r="28" fill="#c4b5fd"/>
+  <path d="M34 145h172M120 59v172" stroke="#c7d2fe" stroke-opacity=".6"/>
+  <text x="25" y="270" fill="#fff" font-family="sans-serif" font-size="16" font-weight="700">JS DEEP DIVE</text><text x="25" y="297" fill="#c7d2fe" font-family="sans-serif" font-size="11" letter-spacing="2">SCOPE / CLOSURES</text>
+</svg>

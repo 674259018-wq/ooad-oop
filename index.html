@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#ffffff">
   <title>ห้องสมุดดิจิทัล — โปรเจกต์ปลายภาค</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="theme.css">
   <style>
-    :root { color-scheme: light; }
     html { scroll-behavior: smooth; }
     body { font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
     .tab-panel[hidden] { display: none; }
@@ -21,17 +21,21 @@
 </head>
 <body class="min-h-screen bg-white text-zinc-950 antialiased">
   <header class="border-b border-zinc-200">
-    <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-5 sm:px-8">
+    <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-x-6 gap-y-3 px-5 py-4 sm:px-8">
       <a href="#" class="flex items-center gap-3" aria-label="ห้องสมุดดิจิทัล">
         <span class="grid h-10 w-10 place-items-center rounded-xl bg-black text-white" aria-hidden="true">
           <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5z"/><path d="M4 5.5v16M8 7h8M8 11h8"/></svg>
         </span>
         <span>
           <span class="block text-sm font-semibold tracking-tight">ห้องสมุดดิจิทัล</span>
-          <span class="block text-xs text-zinc-500">OOP &amp; OOAD · โปรเจกต์ปลายภาค</span>
         </span>
       </a>
-      <div class="flex items-center gap-3">
+      <div class="ml-auto flex min-w-0 max-w-full flex-wrap items-center justify-end gap-3">
+        <nav id="workspace" class="flex max-w-full gap-1 overflow-x-auto" role="tablist" aria-label="ส่วนต่าง ๆ ของโครงการ">
+          <button class="tab-button whitespace-nowrap rounded-xl px-4 py-2.5 text-sm font-medium transition" id="tab-dashboard" role="tab" aria-selected="true" aria-controls="panel-dashboard">หน้าแรก</button>
+          <button class="tab-button whitespace-nowrap rounded-xl px-4 py-2.5 text-sm font-medium transition" id="tab-history" role="tab" aria-selected="false" aria-controls="panel-history" tabindex="-1">ประวัติการยืม</button>
+          <button class="tab-button whitespace-nowrap rounded-xl px-4 py-2.5 text-sm font-medium transition" id="tab-login" role="tab" aria-selected="false" aria-controls="panel-login" tabindex="-1">เข้าสู่ระบบ</button>
+        </nav>
         <div id="session-status" class="hidden items-center gap-2 text-xs text-zinc-600">
           <span id="session-name"></span>
           <button id="logout-button" type="button" class="rounded-lg border border-zinc-200 px-2.5 py-1.5 font-medium hover:bg-zinc-100">ออกจากระบบ</button>
@@ -39,17 +43,16 @@
         <div class="hidden items-center gap-2 rounded-full border border-zinc-200 px-3 py-1.5 text-xs text-zinc-600 sm:flex">
           <span class="h-2 w-2 rounded-full bg-black"></span><span>ระบบห้องสมุดดิจิทัล</span>
         </div>
+        <button id="theme-toggle" type="button" aria-pressed="false" class="whitespace-nowrap rounded-lg border border-zinc-200 px-3 py-2 text-xs font-medium text-zinc-700 transition hover:bg-zinc-100">☾ โหมดกลางคืน</button>
       </div>
     </div>
   </header>
 
   <main class="mx-auto max-w-7xl px-5 pb-16 pt-10 sm:px-8 sm:pt-14">
     <section class="mb-9">
-      <p class="mb-3 text-xs font-semibold uppercase tracking-[.2em] text-zinc-500">โปรเจกต์ทีม 2 สัปดาห์</p>
       <div class="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
         <div>
           <h1 class="max-w-3xl text-4xl font-semibold tracking-[-.055em] sm:text-6xl">จัดการห้องสมุด<br class="hidden sm:block"> ได้ง่ายกว่าที่เคย</h1>
-          <p class="mt-5 max-w-2xl text-base leading-7 text-zinc-600 sm:text-lg">ระบบจัดการห้องสมุดดิจิทัลที่ออกแบบด้วยหลัก OOP และ OOAD — เรียบง่าย โปร่งใส และพร้อมต่อยอด</p>
         </div>
         <div class="flex gap-3">
           <a href="#workspace" class="inline-flex items-center gap-2 rounded-xl bg-black px-5 py-3 text-sm font-medium text-white transition hover:bg-zinc-800">
@@ -59,54 +62,30 @@
       </div>
     </section>
 
-    <nav id="workspace" class="mb-8 flex gap-1 overflow-x-auto rounded-2xl border border-zinc-200 bg-white p-1.5" role="tablist" aria-label="ส่วนต่าง ๆ ของโครงการ">
-      <button class="tab-button whitespace-nowrap rounded-xl px-4 py-2.5 text-sm font-medium transition" id="tab-dashboard" role="tab" aria-selected="true" aria-controls="panel-dashboard">01&nbsp; แดชบอร์ด</button>
-      <button class="tab-button whitespace-nowrap rounded-xl px-4 py-2.5 text-sm font-medium transition" id="tab-history" role="tab" aria-selected="false" aria-controls="panel-history" tabindex="-1">02&nbsp; ประวัติการยืม</button>
-      <button class="tab-button whitespace-nowrap rounded-xl px-4 py-2.5 text-sm font-medium transition" id="tab-login" role="tab" aria-selected="false" aria-controls="panel-login" tabindex="-1">03&nbsp; เข้าสู่ระบบ</button>
-    </nav>
-
     <section class="tab-panel" id="panel-dashboard" role="tabpanel" aria-labelledby="tab-dashboard">
-      <div class="mb-7 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <article class="rounded-2xl border border-zinc-200 p-5">
-          <p class="text-sm text-zinc-500">หนังสือทั้งหมด</p><div class="mt-4 flex items-end justify-between"><strong id="stat-total" class="text-4xl font-semibold tracking-tight">12</strong><span class="text-xs text-zinc-500">จำนวนเล่มในคลัง</span></div>
-        </article>
-        <article class="rounded-2xl border border-zinc-200 p-5">
-          <p class="text-sm text-zinc-500">พร้อมให้ยืม</p><div class="mt-4 flex items-end justify-between"><strong id="stat-available" class="text-4xl font-semibold tracking-tight">9</strong><span class="text-xs text-zinc-500">เล่มพร้อมให้ยืม</span></div>
-        </article>
-        <article class="rounded-2xl border border-zinc-200 p-5">
-          <p class="text-sm text-zinc-500">กำลังถูกยืม</p><div class="mt-4 flex items-end justify-between"><strong id="stat-borrowed" class="text-4xl font-semibold tracking-tight">3</strong><span class="text-xs text-zinc-500">รายการยืมอยู่</span></div>
-        </article>
-        <article class="rounded-2xl border border-zinc-200 p-5">
-          <p class="text-sm text-zinc-500">ค่าปรับจำลอง</p><div class="mt-4 flex items-end justify-between"><strong id="stat-fines" class="text-4xl font-semibold tracking-tight">฿0</strong><span class="text-xs text-zinc-500">รายการที่คืนแล้ว</span></div>
-        </article>
+      <div class="mb-6 grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto]">
+        <label class="relative block">
+          <span class="sr-only">ค้นหาหนังสือ</span>
+          <svg class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.5 4.5"/></svg>
+          <input id="book-search" type="search" placeholder="ค้นหาชื่อหนังสือ ผู้แต่ง หรือรหัส" class="w-full rounded-xl border border-zinc-200 bg-white py-2.5 pl-10 pr-3 text-sm outline-none placeholder:text-zinc-400 focus:border-zinc-500">
+        </label>
+        <label>
+          <span class="sr-only">กรองตามหมวดหมู่</span>
+          <select id="category-filter" class="w-full rounded-xl border border-zinc-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-zinc-500">
+            <option value="">ทุกหมวดหมู่</option>
+            <option value="โปรแกรมมิ่ง">โปรแกรมมิ่ง</option>
+            <option value="การออกแบบซอฟต์แวร์">การออกแบบซอฟต์แวร์</option>
+            <option value="แนวปฏิบัติการพัฒนา">แนวปฏิบัติการพัฒนา</option>
+          </select>
+        </label>
       </div>
-
-      <div class="grid gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(300px,.8fr)]">
-        <section class="rounded-2xl border border-zinc-200 p-5 sm:p-7">
-          <div class="mb-6 flex flex-wrap items-end justify-between gap-3">
+      <section class="rounded-2xl border border-zinc-200 p-5 sm:p-7">
+          <div class="mb-6">
             <div><p class="text-xs font-medium uppercase tracking-[.16em] text-zinc-500">รายการหนังสือ</p><h2 class="mt-1 text-2xl font-semibold tracking-tight">หนังสือและสถานะการยืม</h2></div>
-            <div class="flex flex-wrap items-center gap-3">
-              <label class="flex items-center gap-2 text-xs text-zinc-600"><input id="overdue-toggle" type="checkbox" class="accent-black"><span>จำลองคืนเกินกำหนด 2 วัน</span></label>
-              <label class="sr-only" for="member-select">เลือกสมาชิก</label>
-              <select id="member-select" class="rounded-xl border border-zinc-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-zinc-500">
-                <option value="student">Mina · นักเรียน (โควตา 3 เล่ม)</option>
-                <option value="teacher">Alex · ผู้สอน (โควตา 5 เล่ม)</option>
-              </select>
-            </div>
           </div>
           <div id="book-list" class="grid gap-3 sm:grid-cols-2"></div>
-          <p class="mt-5 text-xs leading-5 text-zinc-500">การจำลองทำงานในเบราว์เซอร์และรีเซ็ตเมื่อโหลดหน้าใหม่ · ยืมได้ 14 วัน · นักเรียนปรับ ฿5/วัน · ผู้สอนปรับ ฿2/วัน</p>
-        </section>
-
-        <aside class="rounded-2xl bg-zinc-950 p-5 text-white sm:p-7">
-          <div class="flex items-start justify-between gap-3">
-            <div><p class="text-xs font-medium uppercase tracking-[.16em] text-zinc-400">กิจกรรม</p><h2 class="mt-1 text-2xl font-semibold tracking-tight">ประวัติธุรกรรม</h2></div>
-            <span class="rounded-full border border-zinc-700 px-2.5 py-1 text-xs text-zinc-300">เดโมแบบสด</span>
-          </div>
-          <div id="activity-log" class="mt-6 space-y-4" aria-live="polite"></div>
-          <button id="reset-demo" class="mt-7 w-full rounded-xl border border-zinc-700 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-zinc-800">เริ่มการจำลองใหม่</button>
-        </aside>
-      </div>
+          <p class="mt-5 text-xs leading-5 text-zinc-500">สถานะการยืมบันทึกไว้ในเบราว์เซอร์ · ยืมได้ 14 วัน · นักเรียนปรับ ฿5/วัน · ผู้สอนปรับ ฿2/วัน</p>
+      </section>
     </section>
 
     <section class="tab-panel" id="panel-history" role="tabpanel" aria-labelledby="tab-history" hidden>
@@ -178,27 +157,19 @@
   </main>
   <footer class="border-t border-zinc-200">
     <div class="mx-auto flex max-w-7xl flex-col gap-2 px-5 py-6 text-xs text-zinc-500 sm:flex-row sm:items-center sm:justify-between sm:px-8">
-      <span>ระบบจัดการห้องสมุดดิจิทัล</span><span>OOP &amp; OOAD · โปรเจกต์ปลายภาค · ทีม 2 คน</span>
+      <span>ระบบจัดการห้องสมุดดิจิทัล</span>
     </div>
   </footer>
 
+  <script src="books/catalog.js"></script>
+  <script src="books/simulation.js"></script>
+  <script src="theme.js"></script>
   <script>
     const labels = {
       limitOption: "โควตา {limit} เล่ม",
       memberStudent: "นักเรียน",
       memberTeacher: "ผู้สอน",
       availableCount: "พร้อมยืม {available}/{total} เล่ม",
-      returnBook: "คืนหนังสือ",
-      borrowBook: "ยืมหนังสือ",
-      allCopiesOut: "ถูกยืมหมดแล้ว",
-      limitReached: "ถึงโควตายืมแล้ว",
-      alreadyBorrowed: "ยืมเล่มนี้แล้ว",
-      returnedActivity: "{member} คืน {book}",
-      borrowedActivity: "{member} ยืม {book}",
-      overdueFine: "เกินกำหนด {days} วัน · ค่าปรับ ฿{fine}",
-      returnedOnTime: "คืนตรงเวลา · ไม่มีค่าปรับ",
-      todayMember: "วันนี้ · สมาชิก{type}",
-      dueInDays: "สมาชิก{type} · กำหนดคืนใน 14 วัน",
       statusReturned: "คืนแล้ว",
       statusBorrowed: "กำลังยืม",
       historyEmpty: "ยังไม่มีประวัติการยืม ลองยืมหนังสือจากหน้าแดชบอร์ด",
@@ -219,46 +190,24 @@
       return interpolate(labels[key], values);
     }
 
-    const initialBooks = [
-      { id: "B001", total: 3, available: 2, borrowers: ["student"] },
-      { id: "B002", total: 2, available: 1, borrowers: ["teacher"] },
-      { id: "B003", total: 4, available: 4, borrowers: [] },
-      { id: "B004", total: 3, available: 2, borrowers: ["student"] }
-    ];
-    const bookNames = {
-      B001: { title: "โค้ดสะอาด", author: "โรเบิร์ต ซี. มาร์ติน" },
-      B002: { title: "รูปแบบการออกแบบ", author: "เอริค แกมมา และคณะ" },
-      B003: { title: "โปรแกรมเมอร์แนวปฏิบัติ", author: "เดวิด โธมัส" },
-      B004: { title: "การปรับโครงสร้างโค้ด", author: "มาร์ติน ฟาวเลอร์" }
-    };
-    const members = {
-      student: { name: "Mina", type: "Student", limit: 3, finePerDay: 5, borrowed: ["B001", "B004"] },
-      teacher: { name: "Alex", type: "Teacher", limit: 5, finePerDay: 2, borrowed: ["B002"] }
-    };
+    const bookNames = window.LibraryBookCatalog;
     const credentials = new Map([
       ["S001", { memberKey: "student", password: "library123" }],
       ["T001", { memberKey: "teacher", password: "library123" }]
     ]);
 
     const bookList = document.getElementById("book-list");
-    const activityLog = document.getElementById("activity-log");
-    const memberSelect = document.getElementById("member-select");
+    const bookSearch = document.getElementById("book-search");
+    const categoryFilter = document.getElementById("category-filter");
+    let simulation;
     let books = [];
     let memberState = {};
-    let fines = 0;
-    let events = [];
     let loanRecords = [];
     let activeSession = null;
     let loginMessageKey = "";
     let loginMessageName = "";
     let loginMessageId = "";
     let memberSequence = 0;
-
-    function addDays(date, days) {
-      const result = new Date(date);
-      result.setDate(result.getDate() + days);
-      return result;
-    }
 
     function formatDate(date) {
       if (!date) return "—";
@@ -283,20 +232,6 @@
       })[character]);
     }
 
-    function renderMemberOptions() {
-      const selectedMember = memberSelect.value;
-      memberSelect.replaceChildren();
-      Object.entries(memberState).forEach(([memberKey, member]) => {
-        const option = document.createElement("option");
-        option.value = memberKey;
-        option.textContent = `${member.name} · ${localizedMemberType(member)} (${translate("limitOption", { limit: member.limit })})`;
-        memberSelect.append(option);
-      });
-      if (memberState[selectedMember]) {
-        memberSelect.value = selectedMember;
-      }
-    }
-
     function setAuthMode(mode) {
       const isRegister = mode === "register";
       document.getElementById("login-form").classList.toggle("hidden", isRegister);
@@ -313,80 +248,43 @@
       renderSession();
     }
 
-    function resetSimulation() {
-      books = initialBooks.map(book => ({ ...book, borrowers: [...book.borrowers] }));
-      memberState = Object.fromEntries(Object.entries(members).map(([key, member]) =>
-        [key, { ...member, borrowed: [...member.borrowed] }]));
-      fines = 0;
-      const borrowedAt = new Date();
-      loanRecords = [];
-      books.forEach(book => book.borrowers.forEach(memberKey => {
-        loanRecords.push({
-          memberKey,
-          bookId: book.id,
-          borrowedAt: new Date(borrowedAt),
-          dueAt: addDays(borrowedAt, 14),
-          returnedAt: null,
-          fine: 0
-        });
-      }));
-      events = [
-        { type: "borrow", memberKey: "student", bookId: "B001", initial: true },
-        { type: "borrow", memberKey: "teacher", bookId: "B002", initial: true },
-        { type: "borrow", memberKey: "student", bookId: "B004", initial: true }
-      ];
+    function initializeSimulation() {
+      simulation = window.LibrarySimulation.load();
+      books = simulation.books;
+      memberState = simulation.memberState;
+      loanRecords = simulation.loanRecords;
+      memberSequence = simulation.memberSequence || 0;
+      activeSession = simulation.session;
       render();
     }
 
     function render() {
-      renderMemberOptions();
-      const total = books.reduce((sum, book) => sum + book.total, 0);
-      const available = books.reduce((sum, book) => sum + book.available, 0);
-      document.getElementById("stat-total").textContent = total;
-      document.getElementById("stat-available").textContent = available;
-      document.getElementById("stat-borrowed").textContent = total - available;
-      document.getElementById("stat-fines").textContent = `฿${fines}`;
-      bookList.innerHTML = books.map(book => {
+      const searchTerm = bookSearch.value.trim().toLocaleLowerCase();
+      const selectedCategory = categoryFilter.value;
+      const visibleBooks = books.filter(book => {
         const localizedBook = bookNames[book.id];
-        const member = memberState[memberSelect.value];
-        const isBorrowedByMember = book.borrowers.includes(memberSelect.value);
-        const canBorrow = !isBorrowedByMember && book.available > 0 && member.borrowed.length < member.limit;
-        const buttonText = isBorrowedByMember ? translate("returnBook") : canBorrow ? translate("borrowBook") : book.available === 0 ? translate("allCopiesOut") : member.borrowed.length >= member.limit ? translate("limitReached") : translate("alreadyBorrowed");
-        const disabled = !isBorrowedByMember && !canBorrow;
+        const matchesSearch = !searchTerm || [book.id, localizedBook.title, localizedBook.author]
+          .some(value => value.toLocaleLowerCase().includes(searchTerm));
+        const matchesCategory = !selectedCategory || localizedBook.category === selectedCategory;
+        return matchesSearch && matchesCategory;
+      });
+      bookList.innerHTML = visibleBooks.length ? visibleBooks.map(book => {
+        const localizedBook = bookNames[book.id];
         return `<article class="book-card rounded-xl border border-zinc-200 p-4">
-          <div class="flex items-start justify-between gap-3">
-            <div><p class="text-xs text-zinc-500">${book.id}</p><h3 class="mt-1 font-semibold tracking-tight">${localizedBook.title}</h3><p class="mt-1 text-sm text-zinc-500">${localizedBook.author}</p></div>
-            <span class="whitespace-nowrap rounded-full bg-zinc-100 px-2.5 py-1 text-xs font-medium">${translate("availableCount", { available: book.available, total: book.total })}</span>
+          <div class="flex items-start gap-4">
+            <a href="books/${book.id.toLowerCase()}.html" aria-label="ดูรายละเอียด ${localizedBook.title}" class="shrink-0">
+              <img src="images/books/${localizedBook.cover}" alt="ปกหนังสือ ${localizedBook.title}" class="h-36 w-24 rounded-lg object-cover shadow-sm ring-1 ring-black/5">
+            </a>
+            <div class="min-w-0 flex-1">
+              <div class="flex flex-wrap items-start justify-between gap-2">
+                <div><p class="text-xs text-zinc-500">${book.id}</p><h3 class="mt-1 font-semibold tracking-tight"><a href="books/${book.id.toLowerCase()}.html" class="hover:underline">${localizedBook.title}</a></h3><p class="mt-1 text-sm text-zinc-500">${localizedBook.author}</p><span class="mt-2 inline-flex rounded-full bg-zinc-100 px-2.5 py-1 text-xs text-zinc-600">${localizedBook.category}</span></div>
+                <span class="whitespace-nowrap rounded-full bg-zinc-100 px-2.5 py-1 text-xs font-medium">${translate("availableCount", { available: book.available, total: book.total })}</span>
+              </div>
+            </div>
           </div>
-          <button data-book-id="${book.id}" class="mt-4 w-full rounded-lg ${isBorrowedByMember ? "bg-white text-zinc-900 ring-1 ring-zinc-300 hover:bg-zinc-50" : "bg-zinc-950 text-white hover:bg-zinc-800"} px-3 py-2 text-sm font-medium transition disabled:cursor-not-allowed disabled:bg-zinc-100 disabled:text-zinc-400 disabled:ring-0" ${disabled ? "disabled" : ""}>${buttonText}</button>
+          <a href="books/${book.id.toLowerCase()}.html" class="mt-4 block text-center text-sm font-medium text-zinc-600 hover:text-zinc-950">ดูรายละเอียดหนังสือ</a>
         </article>`;
-      }).join("");
-      activityLog.innerHTML = events.slice(0, 6).map(event => {
-        const member = memberState[event.memberKey];
-        const book = books.find(item => item.id === event.bookId);
-        const localizedBook = bookNames[book.id];
-        const message = translate(event.type === "return" ? "returnedActivity" : "borrowedActivity", {
-          member: escapeHtml(member.name),
-          book: localizedBook.title
-        });
-        let detail;
-        if (event.type === "return") {
-          detail = event.fine
-            ? translate("overdueFine", { days: event.fineDays, fine: event.fine })
-            : translate("returnedOnTime");
-        } else if (event.initial) {
-          const type = member.type === "Student" ? "นักเรียน" : "ผู้สอน";
-          detail = translate("todayMember", { type });
-        } else {
-          const type = member.type === "Student" ? "นักเรียน" : "ผู้สอน";
-          detail = translate("dueInDays", { type });
-        }
-        return `
-        <div class="flex gap-3">
-          <span class="mt-1 grid h-7 w-7 shrink-0 place-items-center rounded-full ${event.type === "return" ? "bg-white text-black" : "bg-zinc-800 text-white"} text-xs">${event.type === "return" ? "↩" : "↗"}</span>
-          <div><p class="text-sm font-medium">${message}</p><p class="mt-1 text-xs text-zinc-400">${detail}</p></div>
-        </div>`;
-      }).join("");
+      }).join("") : `<p class="col-span-full rounded-xl border border-dashed border-zinc-300 px-4 py-8 text-center text-sm text-zinc-500">ไม่พบหนังสือที่ตรงกับคำค้นหาหรือหมวดหมู่</p>`;
       renderHistory();
       renderSession();
     }
@@ -440,50 +338,8 @@
       }`;
     }
 
-    bookList.addEventListener("click", event => {
-      const button = event.target.closest("button[data-book-id]");
-      if (!button) return;
-      const book = books.find(item => item.id === button.dataset.bookId);
-      const memberKey = memberSelect.value;
-      const member = memberState[memberKey];
-      if (book.borrowers.includes(memberKey)) {
-        book.available += 1;
-        member.borrowed = member.borrowed.filter(id => id !== book.id);
-        book.borrowers = book.borrowers.filter(key => key !== memberKey);
-        const fineDays = document.getElementById("overdue-toggle").checked ? 2 : 0;
-        const fine = fineDays * member.finePerDay;
-        const loan = loanRecords.find(record =>
-          record.memberKey === memberKey && record.bookId === book.id && !record.returnedAt
-        );
-        if (!loan) {
-          throw new Error("Active loan record is missing for this return.");
-        }
-        loan.returnedAt = fineDays ? addDays(loan.dueAt, fineDays) : new Date();
-        loan.fine = fine;
-        fines += fine;
-        events.unshift({ type: "return", memberKey, bookId: book.id, fineDays, fine });
-      } else if (!book.borrowers.includes(memberKey) && book.available > 0 && member.borrowed.length < member.limit) {
-        book.borrowers.push(memberKey);
-        book.available -= 1;
-        member.borrowed.push(book.id);
-        const borrowedAt = new Date();
-        loanRecords.push({
-          memberKey,
-          bookId: book.id,
-          borrowedAt,
-          dueAt: addDays(borrowedAt, 14),
-          returnedAt: null,
-          fine: 0
-        });
-        events.unshift({ type: "borrow", memberKey, bookId: book.id, initial: false });
-      } else {
-        return;
-      }
-      render();
-    });
-
-    memberSelect.addEventListener("change", render);
-    document.getElementById("reset-demo").addEventListener("click", resetSimulation);
+    bookSearch.addEventListener("input", render);
+    categoryFilter.addEventListener("change", render);
     document.getElementById("show-login").addEventListener("click", () => setAuthMode("login"));
     document.getElementById("show-register").addEventListener("click", () => setAuthMode("register"));
     document.getElementById("login-form").addEventListener("submit", event => {
@@ -499,8 +355,8 @@
         return;
       }
       const member = memberState[account.memberKey];
-      activeSession = { memberKey: account.memberKey, name: member.name };
-      memberSelect.value = account.memberKey;
+      window.LibrarySimulation.setSession(simulation, account.memberKey);
+      activeSession = simulation.session;
       loginMessageKey = "loginSuccess";
       loginMessageName = member.name;
       loginMessageId = "";
@@ -548,12 +404,12 @@
         finePerDay: type === "Student" ? 5 : 2,
         borrowed: []
       };
-      members[memberKey] = { ...member, borrowed: [] };
       memberState[memberKey] = { ...member, borrowed: [] };
       credentials.set(memberId, { memberKey, password });
-      activeSession = { memberKey, name };
-      renderMemberOptions();
-      memberSelect.value = memberKey;
+      window.LibrarySimulation.setSession(simulation, memberKey);
+      activeSession = simulation.session;
+      simulation.memberSequence = memberSequence;
+      window.LibrarySimulation.save(simulation);
       loginMessageKey = "registerSuccess";
       loginMessageName = "";
       loginMessageId = memberId;
@@ -564,6 +420,7 @@
       render();
     });
     document.getElementById("logout-button").addEventListener("click", () => {
+      window.LibrarySimulation.clearSession(simulation);
       activeSession = null;
       loginMessageKey = "";
       loginMessageName = "";
@@ -592,7 +449,10 @@
         document.getElementById(tab.getAttribute("aria-controls")).hidden = !active;
       });
     }
-    resetSimulation();
+    if (window.location.hash === "#login") {
+      activateTab(document.getElementById("tab-login"));
+    }
+    initializeSimulation();
   </script>
 </body>
 </html>

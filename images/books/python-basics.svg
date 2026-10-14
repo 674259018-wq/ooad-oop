@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 360">
+  <defs><linearGradient id="g" x2="1" y2="1"><stop stop-color="#0f766e"/><stop offset="1" stop-color="#164e63"/></linearGradient></defs>
+  <path fill="url(#g)" d="M0 0h240v360H0z"/><circle cx="120" cy="145" r="72" fill="#fef3c7"/>
+  <path d="M87 111h47a19 19 0 0 1 19 19v12h-47a19 19 0 0 0-19 19zm66 68h-47a19 19 0 0 1-19-19v-12h47a19 19 0 0 0 19-19z" fill="#0f766e"/>
+  <circle cx="133" cy="124" r="3" fill="#fff"/><circle cx="107" cy="166" r="3" fill="#fff"/>
+  <text x="25" y="270" fill="#fff" font-family="sans-serif" font-size="20" font-weight="700">PYTHON</text><text x="25" y="296" fill="#ccfbf1" font-family="sans-serif" font-size="12" letter-spacing="2">START HERE</text>
+</svg>

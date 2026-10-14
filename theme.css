@@ -1,0 +1,95 @@
+:root {
+  color-scheme: light;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+html[data-theme="dark"] body {
+  background-color: #09090b;
+  color: #f4f4f5;
+}
+
+html[data-theme="dark"] .bg-white {
+  background-color: #18181b;
+}
+
+html[data-theme="dark"] .bg-zinc-50 {
+  background-color: #27272a;
+}
+
+html[data-theme="dark"] .bg-zinc-100 {
+  background-color: #3f3f46;
+}
+
+html[data-theme="dark"] .bg-zinc-950,
+html[data-theme="dark"] .bg-black {
+  background-color: #000;
+}
+
+html[data-theme="dark"] .text-zinc-950,
+html[data-theme="dark"] .text-zinc-900 {
+  color: #f4f4f5;
+}
+
+html[data-theme="dark"] .text-zinc-800,
+html[data-theme="dark"] .text-zinc-700,
+html[data-theme="dark"] .text-zinc-600,
+html[data-theme="dark"] .text-zinc-500 {
+  color: #a1a1aa;
+}
+
+html[data-theme="dark"] .text-zinc-400 {
+  color: #71717a;
+}
+
+html[data-theme="dark"] .border-zinc-200,
+html[data-theme="dark"] .border-zinc-300 {
+  border-color: #3f3f46;
+}
+
+html[data-theme="dark"] .border-zinc-700 {
+  border-color: #52525b;
+}
+
+html[data-theme="dark"] .ring-zinc-200 {
+  --tw-ring-color: #3f3f46;
+}
+
+html[data-theme="dark"] input,
+html[data-theme="dark"] select,
+html[data-theme="dark"] textarea {
+  border-color: #52525b;
+  background-color: #18181b;
+  color: #f4f4f5;
+}
+
+html[data-theme="dark"] input::placeholder {
+  color: #71717a;
+}
+
+html[data-theme="dark"] .hover\:bg-zinc-50:hover,
+html[data-theme="dark"] .hover\:bg-zinc-100:hover,
+html[data-theme="dark"] .hover\:bg-zinc-800:hover {
+  background-color: #3f3f46;
+}
+
+html[data-theme="dark"] .hover\:text-zinc-950:hover,
+html[data-theme="dark"] .hover\:text-zinc-900:hover {
+  color: #fff;
+}
+
+html[data-theme="dark"] .tab-button[aria-selected="false"] {
+  color: #a1a1aa;
+}
+
+html[data-theme="dark"] .tab-button[aria-selected="false"]:hover {
+  background-color: #27272a;
+  color: #fff;
+}
+
+html[data-theme="dark"] ::selection {
+  color: #09090b;
+  background: #e4e4e7;
+}
